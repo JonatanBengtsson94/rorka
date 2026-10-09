@@ -1,0 +1,2 @@
+[alias]
+demo = "run --example demo"
