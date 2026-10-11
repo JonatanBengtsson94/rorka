@@ -21,7 +21,7 @@ impl ApplicationHandler for App {
         ) {
             Ok(window) => {
                 log::info!("Window created");
-                match Renderer::new(window) {
+                match Renderer::new(window, event_loop.owned_display_handle()) {
                     Ok(renderer) => {
                         log::info!("Renderer created");
                         self.renderer = Some(renderer);
