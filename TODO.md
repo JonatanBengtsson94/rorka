@@ -1,6 +1,6 @@
 # TODO
 
 - [x] Window and events
-- [ ] ECS
 - [ ] Rendering
+- [ ] ECS
 - [ ] Audio
