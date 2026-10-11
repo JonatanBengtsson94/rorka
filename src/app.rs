@@ -3,19 +3,20 @@ mod handler;
 
 use winit::error::EventLoopError;
 use winit::event_loop::EventLoop;
-use winit::window::Window;
 
 pub use config::Config;
 
+use crate::render::Renderer;
+
 struct App {
-    window: Option<Window>,
+    renderer: Option<Renderer>,
     config: Config,
 }
 
 impl App {
     fn new(config: Config) -> Self {
         Self {
-            window: None,
+            renderer: None,
             config,
         }
     }

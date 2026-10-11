@@ -10,8 +10,6 @@ fn main() {
         width: 800,
     };
 
-    log_gpu();
-
     if let Err(error) = rorka::run(appconfig) {
         log::error!("failed to run: {error}");
         std::process::exit(1);

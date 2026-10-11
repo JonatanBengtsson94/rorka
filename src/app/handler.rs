@@ -4,12 +4,14 @@ use winit::event::WindowEvent;
 use winit::event_loop::ActiveEventLoop;
 use winit::window::{WindowAttributes, WindowId};
 
+use crate::render::Renderer;
+
 use super::App;
 
 impl ApplicationHandler for App {
     fn resumed(&mut self, event_loop: &ActiveEventLoop) {
-        if self.window.is_some() {
-            log::debug!("Called resumed when there already is a window");
+        if self.renderer.is_some() {
+            log::debug!("Called resumed when there already is a renderer");
             return;
         }
         match event_loop.create_window(
@@ -18,8 +20,17 @@ impl ApplicationHandler for App {
                 .with_inner_size(LogicalSize::new(self.config.width, self.config.height)),
         ) {
             Ok(window) => {
-                self.window = Some(window);
                 log::info!("Window created");
+                match Renderer::new(window) {
+                    Ok(renderer) => {
+                        log::info!("Renderer created");
+                        self.renderer = Some(renderer);
+                    }
+                    Err(err) => {
+                        log::error!("Failed to create renderer: {err}");
+                        event_loop.exit();
+                    }
+                }
             }
             Err(err) => {
                 log::error!("Failed to create window: {err}");
